@@ -1,4 +1,4 @@
-# DODO-the-graph
+# DODO Subgraph
 
 Subgraph playground: https://thegraph.com/explorer/subgraph/leckylao/dodo
 
