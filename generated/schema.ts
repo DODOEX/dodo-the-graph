@@ -172,6 +172,15 @@ export class Pair extends Entity {
     this.set("midPrice", Value.fromBigDecimal(value));
   }
 
+  get fee(): BigDecimal {
+    let value = this.get("fee");
+    return value.toBigDecimal();
+  }
+
+  set fee(value: BigDecimal) {
+    this.set("fee", Value.fromBigDecimal(value));
+  }
+
   get volumeBaseToken(): BigDecimal {
     let value = this.get("volumeBaseToken");
     return value.toBigDecimal();

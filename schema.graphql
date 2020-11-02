@@ -46,6 +46,7 @@ type Pair @entity {
   # token1Price: BigDecimal!
 
   midPrice: BigDecimal!
+  fee: BigDecimal!
 
   # lifetime volume stats
   volumeBaseToken: BigDecimal! # SellBaseToken.payBase+BuyBaseToken.receiveBase

@@ -51,7 +51,9 @@ export function handleBuyBaseToken(event: BuyBaseToken): void {
   quoteToken.totalLiquidity = quoteToken.totalLiquidity + convertTokenToDecimal(contract._QUOTE_BALANCE_(), quoteTokenDecimals)
   quoteToken.save()
 
-  pair.midPrice = convertTokenToDecimal(contract.getMidPrice(), BigInt.fromI32(6))
+  pair.midPrice = convertTokenToDecimal(contract.getMidPrice(), (BigInt.fromI32(18).minus(baseTokenDecimals)).plus(quoteTokenDecimals))
+  pair.fee = convertTokenToDecimal(contract._LP_FEE_RATE_() + contract._MT_FEE_RATE_(), BigInt.fromI32(18))
+
   pair.volumeBaseToken = pair.volumeBaseToken + convertTokenToDecimal(event.params.receiveBase, baseTokenDecimals)
   pair.volumeQuoteToken = pair.volumeQuoteToken + convertTokenToDecimal(event.params.payQuote, quoteTokenDecimals)
   pair.txCount = pair.txCount + ONE_BI
@@ -170,7 +172,8 @@ export function handleSellBaseToken(event: SellBaseToken): void {
   quoteToken.totalLiquidity = quoteToken.totalLiquidity + convertTokenToDecimal(contract._QUOTE_BALANCE_(), quoteTokenDecimals)
   quoteToken.save()
 
-  pair.midPrice = convertTokenToDecimal(contract.getMidPrice(), BigInt.fromI32(6))
+  pair.midPrice = convertTokenToDecimal(contract.getMidPrice(), (BigInt.fromI32(18).minus(baseTokenDecimals)).plus(quoteTokenDecimals))
+  pair.fee = convertTokenToDecimal(contract._LP_FEE_RATE_() + contract._MT_FEE_RATE_(), BigInt.fromI32(18))
   pair.volumeBaseToken = pair.volumeBaseToken + convertTokenToDecimal(event.params.payBase, baseTokenDecimals)
   pair.volumeQuoteToken = pair.volumeQuoteToken + convertTokenToDecimal(event.params.receiveQuote, quoteTokenDecimals)
   pair.txCount = pair.txCount + ONE_BI
